@@ -4,15 +4,15 @@ Many optimisation techniques can be applied to CNNs for faster inference and low
 
 1. Layer Fusion
 2. Quantisation with or without Quantisation Aware Training
-3. Weight Pruning
-4. Weight Clustering
-5. Knowledge Distillation from a larger model to a smaller one
+3. Weight Pruning (Sparsity) (To be done)
+4. Weight Clustering (To be done)
+5. Knowledge Distillation from a larger model to a smaller one (To be done)
 
 and more..
 
 This repo aims to demonstrate some of the above techniques.
 
-## Setup
+## Usage
 
 Create a virtual environment:
 
@@ -20,4 +20,10 @@ Create a virtual environment:
 conda env update -f conda.yml
 
 conda activate tf2
+```
+
+Available entry points:
+
+```bash
+python main.py --help
 ```

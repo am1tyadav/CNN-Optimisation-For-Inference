@@ -55,3 +55,36 @@ def speed_test(tflite_model_filepath: str, dtype: DTypeLike):
 
     print(f"For model: {tflite_model_filepath}")
     print(f"Time per iteration: {time_per_iteration:.6f} seconds")
+
+
+def evaluate(tflite_model_filepath: str, dtype: DTypeLike):
+    interpreter = tf.lite.Interpreter(model_path=tflite_model_filepath)
+    interpreter.allocate_tensors()
+
+    _, _, x_test, y_test = get_data()
+
+    num_examples = x_test.shape[0]
+    num_correct = 0
+
+    input_index = interpreter.get_input_details()[0]["index"]
+    output_index = interpreter.get_output_details()[0]["index"]
+
+    for index in range(0, num_examples):
+        example = x_test[index : index + 1]
+
+        if dtype == np.float32:
+            example = example.astype(np.float32)
+        else:
+            example = (example * 255.0).astype(np.uint8)
+
+        interpreter.set_tensor(input_index, example)
+        interpreter.invoke()
+        output = interpreter.get_tensor(output_index)
+
+        if np.argmax(output) == y_test[index]:
+            num_correct += 1
+
+    accuracy = num_correct / num_examples
+
+    print(f"For model: {tflite_model_filepath}")
+    print(f"Accuracy: {accuracy:.4f}")

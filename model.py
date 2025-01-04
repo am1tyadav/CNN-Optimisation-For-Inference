@@ -72,13 +72,14 @@ class FusedCNNBlock(models.Model):
 
 
 def create_model(
-    num_classes: int = 10, input_shape: tuple[int] = (32, 32, 3), is_fused: bool = False
+    num_classes: int = 10,
+    input_shape: tuple[int] = (32, 32, 3),
+    is_fused: bool = False,
+    channels: tuple[int] = (32, 64, 128),
+    filters: tuple[int] = (3, 3, 3),
+    pool_size: tuple[int] = (2, 2, 2),
 ) -> models.Model:
     inputs = layers.Input(shape=input_shape, name="input")
-
-    channels = [32, 64, 128]
-    filters = [3] * 3
-    pool_size = [2] * 3
 
     x = inputs
     block_count = 0
