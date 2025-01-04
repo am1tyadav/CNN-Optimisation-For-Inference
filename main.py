@@ -1,7 +1,12 @@
 import click
 import numpy as np
 from tf_keras import models
-from train import create_and_train_model, create_fused_model, create_model, evaluate_model
+from train import (
+    create_and_train_model,
+    create_fused_model,
+    create_model,
+    evaluate_model,
+)
 from tflite import convert_to_tflite, speed_test, evaluate
 from enum import Enum
 
