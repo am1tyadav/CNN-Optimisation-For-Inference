@@ -5,6 +5,9 @@ from time import perf_counter
 
 
 def evaluate_model(model: models.Model, name: str):
+    model.compile(
+        optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"]
+    )
     _, _, x_test, y_test = get_data()
 
     start_time = perf_counter()

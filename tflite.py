@@ -51,10 +51,9 @@ def speed_test(tflite_model_filepath: str, dtype: DTypeLike):
         _ = interpreter.get_tensor(output_index)
 
     end_time = perf_counter()
-    time_per_iteration = (end_time - start_time) / iterations
 
     print(f"For model: {tflite_model_filepath}")
-    print(f"Time per iteration: {time_per_iteration:.6f} seconds")
+    print(f"Time per 1000 iterations: {end_time - start_time:.6f} seconds")
 
 
 def evaluate(tflite_model_filepath: str, dtype: DTypeLike):

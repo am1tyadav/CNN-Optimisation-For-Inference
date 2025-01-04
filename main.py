@@ -1,7 +1,7 @@
 import click
 import numpy as np
 from tf_keras import models
-from train import create_and_train_model, create_fused_model, create_model
+from train import create_and_train_model, create_fused_model, create_model, evaluate_model
 from tflite import convert_to_tflite, speed_test, evaluate
 from enum import Enum
 
@@ -55,8 +55,13 @@ def speed():
     speed_test(Filepaths.FUSED_CNN_INT8, np.uint8)
 
 
-@cli.command(help="Evaluate all TFLite models")
+@cli.command(help="Evaluate all models")
 def eval():
+    cnn, fused_cnn = load_models()
+
+    evaluate_model(cnn, "CNN")
+    evaluate_model(fused_cnn, "Fused CNN")
+
     evaluate(Filepaths.CNN_TFLITE, np.float32)
     evaluate(Filepaths.FUSED_CNN_TFLITE, np.float32)
     evaluate(Filepaths.CNN_INT8, np.uint8)

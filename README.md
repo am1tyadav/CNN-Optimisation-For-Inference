@@ -27,3 +27,14 @@ Available entry points:
 ```bash
 python main.py --help
 ```
+
+## Example Results
+
+|Model|Accuracy|Size (KB)|Latency (s) / 1K iterations|
+|---|---|---|---|
+|CNN|0.7477|492||
+|Fused CNN|0.7477|481||
+|Q-DYN CNN TFLite|0.7477|459|0.297758|
+|Q-DYN Fused CNN TFlite|0.7477|459|0.296457|
+|Q-INT8 CNN TFLite|0.7458|125|0.069595|
+|Q-INT8 Fused CNN TFLite|0.7458|124|0.069577|
