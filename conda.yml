@@ -1,0 +1,19 @@
+name: tf2
+
+channels:
+  - apple
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.11
+  - pip
+  - pip:
+    - tensorflow==2.16.1
+    - tensorflow-metal~=1.1.0; platform_system=="Darwin"
+    - tensorflow-datasets
+    - tensorflow-model-optimization
+    - black[jupyter]
+    - tf_keras
+    - click
+    - jupyter
