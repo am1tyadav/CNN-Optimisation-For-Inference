@@ -7,6 +7,7 @@ Many optimisation techniques can be applied to CNNs for faster inference and low
 3. Weight Pruning (Sparsity) (To be done)
 4. Weight Clustering (To be done)
 5. Knowledge Distillation from a larger model to a smaller one (To be done)
+6. Using Separable Convolutions
 
 and more..
 
@@ -34,7 +35,10 @@ python main.py --help
 |---|---|---|---|
 |CNN|0.7477|492||
 |Fused CNN|0.7477|481||
+|Sep. CNN|0.7087|166||
 |Q-DYN CNN TFLite|0.7477|459|0.297758|
 |Q-DYN Fused CNN TFlite|0.7477|459|0.296457|
+|Q-DYN Sep. CNN TFLite|0.7087|133|0.055362|
 |Q-INT8 CNN TFLite|0.7458|125|0.069595|
 |Q-INT8 Fused CNN TFLite|0.7458|124|0.069577|
+|Q-INT8 Sep. CNN TFLite|0.7105|47|0.029965|

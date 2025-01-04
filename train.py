@@ -21,10 +21,12 @@ def evaluate_model(model: models.Model, name: str):
     print(f"Time taken: {end_time - start_time:.4f} seconds")
 
 
-def create_and_train_model(epochs: int = 10) -> models.Model:
+def create_and_train_model(
+    epochs: int = 10, is_separable: bool = False
+) -> models.Model:
     batch_size = 32
     x_train, y_train, x_test, y_test = get_data()
-    model = create_model()
+    model = create_model(is_separable=is_separable)
 
     model.compile(
         optimizer="adam", loss="sparse_categorical_crossentropy", metrics=["accuracy"]

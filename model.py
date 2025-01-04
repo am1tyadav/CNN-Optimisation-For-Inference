@@ -11,10 +11,14 @@ def get_data():
 
 
 class RegularCNNBlock(models.Model):
-    def __init__(self, out_channels: int, kernel_size: int, name: str):
+    def __init__(
+        self, out_channels: int, kernel_size: int, is_separable: bool, name: str
+    ):
         super().__init__(name=name)
 
-        self.conv = layers.Conv2D(out_channels, kernel_size, padding="same")
+        conv = layers.Conv2D if not is_separable else layers.SeparableConv2D
+
+        self.conv = conv(out_channels, kernel_size, padding="same")
         self.bn = layers.BatchNormalization()
         self.relu = layers.ReLU()
 
@@ -51,7 +55,7 @@ def fuse_conv_bn_weights(
 
 
 class FusedCNNBlock(models.Model):
-    def __init__(self, out_channels: int, kernel_size: int, name: str):
+    def __init__(self, out_channels: int, kernel_size: int, name: str, **kwargs):
         super().__init__(name=name)
 
         self.conv = layers.Conv2D(
@@ -75,6 +79,7 @@ def create_model(
     num_classes: int = 10,
     input_shape: tuple[int] = (32, 32, 3),
     is_fused: bool = False,
+    is_separable: bool = False,
     channels: tuple[int] = (32, 64, 128),
     filters: tuple[int] = (3, 3, 3),
     pool_size: tuple[int] = (2, 2, 2),
@@ -89,7 +94,7 @@ def create_model(
     for c, f, p in zip(channels, filters, pool_size):
         block_count += 1
 
-        block = cnn_block(c, f, name=f"block_{block_count}")
+        block = cnn_block(c, f, is_separable=is_separable, name=f"block_{block_count}")
         x = block(x)
         x = layers.MaxPooling2D(p, name=f"pool_{block_count}")(x)
 
